@@ -20,7 +20,7 @@ The setup is configured with the following key settings:
 ### n8n Configuration
 - **Port**: 5678
 - **Protocol**: HTTP
-- **Host**: 192.168.3.169
+- **Host**: 192.168.3.169 (example - update to your host IP)
 - **Basic Authentication**: Enabled
 - **Runners**: Enabled
 
@@ -86,8 +86,10 @@ Data is persisted using Docker volumes:
 Once the containers are running, you can access n8n at:
 
 ```
-http://192.168.3.169:5678
+http://<your-host-ip>:5678
 ```
+
+Replace `<your-host-ip>` with the IP address configured in your `docker-compose.yml` file (default example: `192.168.3.169`).
 
 You will be prompted for basic authentication using the credentials mentioned above.
 
@@ -95,6 +97,7 @@ You will be prompted for basic authentication using the credentials mentioned ab
 
 To customize the configuration, edit the `docker-compose.yml` file and modify the environment variables as needed. Common changes include:
 
+- **Host IP address** (`N8N_HOST` and `DB_POSTGRESDB_HOST`) - Update these to match your environment
 - Database credentials
 - n8n host and port
 - Encryption key
