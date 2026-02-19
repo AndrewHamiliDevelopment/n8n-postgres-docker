@@ -1,0 +1,43 @@
+services:
+  n8n:
+    network_mode: host
+    restart: unless-stopped
+    tty: true
+    container_name: n8n-app
+    build: .
+    #image: n8nio/n8n
+    environment:
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=root
+      - N8N_BASIC_AUTH_PASSWORD=toor
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_HOST=192.168.3.169
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=192.168.3.169
+      - DB_POSTGRESDB_PORT=2131
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USERNAME=postgres
+      - DB_POSTGRESDB_PASSWORD=toor
+      - N8N_ENCRYPTION_KEY=krusty-krab
+      - N8N_SECURE_COOKIE=false
+    volumes:
+      - ./n8n-data:/home/node/n8n-data
+    depends_on:
+      - postgres
+  postgres:
+    ports:
+      - 2131:5432
+    restart: unless-stopped
+    container_name: n8n-postgres
+    tty: true
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=toor
+      - POSTGRES_DB=n8n
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+# vim: set syntax=yaml ts=2 sw=2 sts=2 et:
